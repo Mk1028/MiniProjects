@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static 'css/bulma.css' %}" rel="stylesheet">
+
+    <title >Points Table</title>
+    <style>
+
+        .bg {
+  /* The image used */
+  background-image: url({% static 'IPLLogos\Black.jpg' %});
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+    </style>
+       <script language="JavaScript" src="{% static 'jquery.js' %}"></script>
+
+<script>
+function matchDetails(id)
+{
+    window.location.href=`${id}/`
+}
+</script>
+</head>
+<body class="bg">
+<br>
+<a href="/logout/" class="" style="margin-left:90vw;font-size:25px;color:pink;">Logout</a>
+<h1 align="center" style="font-size:50px"><b style="color:SeaShell">Points Table</b></h1><br>
+<div>
+<!--<table class="is-narrow" border="" style="margin-left:380px;margin-right:100px;">-->
+    <!--<thead>-->
+    <!--<tr>-->
+        <!--<th><div style="background-color:orange;font-size:25px;"><center><b >TEAM </b></center></div></th>-->
+        <!--<th><div style="background-color:orange;font-size:25px;"><center><b style="margin:30px;">POINTS </b></center></div></th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--{% for p, value in points.items %}-->
+    <!--<tr><td><div style="background-color:SteelBlue;font-size:25px;"><center><b style="">{{ p }}</b></center></div></td>-->
+        <!--<td><div style="background-color:SteelBlue;font-size:25px;"><center><b style="">{{ value }}</b></center></div></td>-->
+    <!--</tr>-->
+    <!--{% endfor %}-->
+    <!--</tbody>-->
+<!--</table>-->
+    <table class="table is-narrow" style="background:transparent;margin-left:373px;">
+    <thead>
+    <tr>
+        <th><div style="background:transparent;font-size:25px;"><center><b style="margin:00px;color:Turquoise;">TEAM </b></center></div></th>
+        <th><div style="background:transparent;font-size:25px;"><b style="margin:50px;color:Turquoise;">POINTS </b></div></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for p, value in points.items %}
+    <tr><td><div style="background:transparent;font-size:25px;"><center><b style="color:Orange">{{ p }}</b></center></div></td>
+        <td><div style="background:transparent;font-size:25px;"><center><b style="color:RoyalBlue">{{ value }}</b></center></div></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <br><br><br><br><br><br><br>
+</div>
+</body>
+</html>

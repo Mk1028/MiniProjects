@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static 'css/bulma.css' %}" rel="stylesheet">
+
+    <title >Season {{year}}</title>
+
+    <style>
+
+        .bg {
+  /* The image used */
+  background-image: url({% static 'IPLLogos\yell.jpg' %});
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+    </style>
+
+    <script language="JavaScript" src="{% static 'jquery.js' %}"></script>
+
+<script>
+function matchDetails(id)
+{
+    window.location.href=`${id}/`
+}
+
+function liveDetails(id)
+{
+    window.location.href=`LIVE/${id}/`
+}
+
+$(document).ready(function(){
+    $('#data').after('<center><div id="nav" style="background-color:MidNightBlue;"></div></center>');
+    var rowsShown = 8;
+    var rowsTotal = $('#data tbody tr').length;
+    var numPages = rowsTotal/rowsShown;
+    for(i = 0;i < numPages;i++) {
+        var pageNum = i + 1;
+        $('#nav').append('<a href="#" rel="'+i+'" style="color:red;font-size:25px;">'+pageNum+'</a> ');
+    }
+    $('#data tbody tr').hide();
+    $('#data tbody tr').slice(0, rowsShown).show();
+    $('#nav a:first').addClass('active');
+    $('#nav a').bind('click', function(){
+
+        $('#nav a').removeClass('active');
+        $(this).addClass('active');
+        var currPage = $(this).attr('rel');
+        var startItem = currPage * rowsShown;
+        var endItem = startItem + rowsShown;
+        $('#data tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+        css('display','table-row').animate({opacity:1}, 300);
+    });
+});
+</script>
+</head>
+<body class="bg">
+<br>
+<a href="/logout/" class="" style="margin-left:90vw;font-size:25px;color:Blue;">Logout</a>
+<h1 align="center" style="font-size:50px"><b style="color:red">Season {{ year }}</b></h1><br>
+<div class="container" >
+    <br>
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <a href="/seasons/points_table/{{ year1 }}/" style="font-size:25px;color:Black;"><b>PointsTable</b></a>
+        </td>
+        <td >
+            <a href="/stats/{{ year1 }}/"  style="margin-left:950px;font-size:25px;color:Black;"><b>Stats</b></a><br>
+        </td>
+    </tr>
+    </tbody>
+</table>
+    {% if live %}
+
+    <div style="background-color:Black;align:center;" onclick="liveDetails( {{ live.id }} )">
+        <center>
+
+            <p style="align:center;">{{ live.venue }}<b style="color:red;font-size:25px;float:right;">LIVE</b></p>
+            <p><b style="color:Black;font-size:20px;"> {{ live.team1 }}</b> Vs <b style="color:cornsilk;font-size:20px;">{{ live.team2 }}</b></p>
+            <p style="color:SteelBlue;"> {{ live.toss_winner }} Won the TOSS and Opt to {{ live.toss_result }} </p>
+
+        </center>
+    </div><br><br>
+    {% endif %}
+
+    {% if matches %}
+
+    <table id="data">
+        <tbody>
+            {% for m in matches %}
+            <tr>
+                <td style="width:5000px;">
+
+                    <div style="background-color:SteelBlue;align:center;" onclick="matchDetails( {{ m.id }} )">
+                        <center>
+
+                        <p style="align:center;">{{ m.venue }}</p>
+                        <p><b style="color:Black;font-size:20px;"> {{ m.team1 }}</b> Vs <b style="color:cornsilk;font-size:20px;">{{ m.team2 }}</b></p>
+                        <p> {{ m.toss_winner }} Won the TOSS and Opt to {{ m.toss_result }} </p>
+                        <p> {{ m.winner }} Won the MATCH</p>
+                        <p> <b style="color:Maroon;font-size:20px;">{{ m.player_of_match }}</b> is PLAYER of the Match </p>
+
+                        </center>
+                    </div>
+                    <br>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+</div>
+</body>
+</html>

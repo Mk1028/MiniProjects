@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static 'css/bulma.css' %}" rel="stylesheet">
+
+    <title >Season {{year}}</title>
+
+    <style>
+
+        .bg {
+              /* The image used */
+              background-image: url({% static 'IPLLogos\bwbl.jpg' %});
+
+              /* Full height */
+              height: 100%;
+
+              <!--/* Center and scale the image nicely */-->
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-cover:full;
+
+            }
+
+    </style>
+
+</head>
+<body class="bg" >
+<br>
+    <a href="/logout/" class="" style="margin-left:90vw;font-size:25px;color:pink;">Logout</a>
+<h1 align="center" style="font-size:50px"><b style="color:Red"><i>Most {{ stat }}</i></b></h1><br>
+<table class="table is-hoverable is-fullwidth" style="background:transparent;margin-right:1500px;margin-left:200px;margin-top:50px;">
+    <thead>
+    <tr>
+        <th style="color:orange;">NAME</th>
+        <th style="color:orange;">{{ stat }}</th>
+        <th style="color:orange;">TEAM</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in key %}
+        <tr>
+            <td>
+                <b style="color:Black;">{{ i.name }}</b>
+            </td>
+            <td>
+                <b style="color:crimson;">{{ i.total }}</b>
+            </td>
+            <td>
+                <b style="color:Gold;">{{ i.team }}</b>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% if stat == "Hundreds" %}
+<br><br><br><br><br><br><br><br><br><br><br><br>
+{% endif %}
+</body>
+</html>
